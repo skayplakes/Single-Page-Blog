@@ -16,3 +16,24 @@ use Illuminate\Foundation\Inspiring;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+
+//Manual changing of dashboard password
+Artisan::command(
+	'passwd 
+	{user : The name of the user}', function ($user) {
+	$admin = \App\Models\Admin::where('name', $user)->first();
+	if (is_null($admin)) {
+		$this->error('non-existent username');
+	} 
+	else {
+		$password = $this->secret('What is the password?');
+		$confirm = $this->secret('Confirm password');
+		if($password !== $confirm) {
+			$this->error('The password must match the one above');
+		} else {
+			$admin->update(['password' => $password]);
+			$this->info('Change password successfully.');
+		}
+	}
+})->describe('Change password of the given user.');

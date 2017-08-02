@@ -7,6 +7,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
 
+
+//*Use this if Register returns an error*
+//use Validator
+
 class RegisterController extends Controller
 {
     /*
